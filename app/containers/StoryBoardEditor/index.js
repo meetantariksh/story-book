@@ -25,6 +25,7 @@ import makeSelectStoryBoardEditor from "./selectors";
 import reducer from "./reducer";
 import saga from "./saga";
 import { config, customEntities } from './configs/configs';
+import StoryWriter from '../../components/StoryWriter/Loadable';
 
 const Editor = style.div`
   display: flex;
@@ -44,7 +45,6 @@ class StoryBoard extends React.Component {
     diagramOn('anyChange', entityState =>{
       // You can get the model back
       // after modifying the UI representation
-      console.info(entityState);
       this.props.onUpdateState(entityState);
     });
   }
@@ -54,87 +54,6 @@ class StoryBoard extends React.Component {
         <Diagram customEntities={customEntities} />
     );
   }
-}
-
-function StoryWriter(entityState) {
-  console.log(entityState);
-  let story = {
-    start: [],
-    navigate: [],
-    comments: [],
-    actionPoints: [],
-    acceptance: []
-  };
-  entityState.entityState.map((entity) => {
-    if(entity.type === 'Start') {
-      story.start.push(entity.name);
-    }else if(entity.type === 'Navigate') {
-      story.navigate.push(entity.name);
-    }else if(entity.type === 'Comments') {
-      story.comments.push(entity.name);
-    }else if(entity.type === 'ActionPoint') {
-      story.actionPoints.push(entity.name);
-    }else if(entity.type === 'Acceptance') {
-      story.acceptance.push(entity.name);
-    }
-  });
-  console.log(story);
-  return (
-    <div>
-      {
-        story.start.length > 0 && 
-        <div>
-          <h1>When</h1>
-          <ul>
-            {
-              story.start.map(item => {
-                return <li>The user: {item}</li>
-              })
-            }
-          </ul>
-        </div>
-      }
-      {
-        story.navigate.length > 0 && 
-        <div>
-          <h1>Navigates</h1>
-          <ul>
-            {
-              story.navigate.map(item => {
-                return <li>The user navigates to: {item}</li>
-              })
-            }
-          </ul>
-        </div>
-      }
-      {
-        story.actionPoints.length > 0 && 
-        <div>
-          <h1>User Actions</h1>
-          <ul>
-            {
-              story.actionPoints.map(item => {
-                return <li>The user: {item}</li>
-              })
-            }
-          </ul>
-        </div>
-      }
-      {
-        story.acceptance.length > 0 && 
-        <div>
-          <h1>Acceptance Criteria</h1>
-          <ul>
-            {
-              story.acceptance.map(item => {
-                return <li>{item}</li>
-              })
-            }
-          </ul>
-        </div>
-      }
-    </div>
-  )
 }
 
 export function StoryBoardEditor() {
