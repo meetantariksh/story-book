@@ -15,13 +15,13 @@ function RenderActionPoints(props) {
       {
         content && content.length > 0 && 
         <div>
-          <h1>When</h1>
+          <h1>Action Point{content.length > 1 ? 's':''} of The story: </h1>
           <ul>
             {
               content.map(item => {
                 return (
                   <li>
-                    {item}
+                    <b>{item}</b>
                   </li>
                 )
               })

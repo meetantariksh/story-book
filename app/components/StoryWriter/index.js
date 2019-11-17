@@ -31,7 +31,6 @@ class StoryWriter extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.entityState);
     if(this.props.entityState !== prevProps.entityState) {
       let story = {
         subject: '',
@@ -58,6 +57,7 @@ class StoryWriter extends React.Component {
           };
           case 'Navigate': {
             story.start.push(prefix + 'navigate to my ' +entity.name);
+            story.navigate.push(prefix + 'navigate to my ' +entity.name);
             break;
           }
           case 'Comments': {
@@ -65,7 +65,14 @@ class StoryWriter extends React.Component {
             break;
           }
           case 'ActionPoint': {
-            story.actionPoints.push(prefix + entity.name);
+            if(story.navigate && story.navigate.length > 0) {
+              let text = ((story.navigate[story.navigate.length-1]).split(prefix));
+              if(story.actionPoints.length >= 1) {
+                story.subject = story.subject.split(text[text.length - 1])[0];
+              }
+              story.subject = story.subject + (text[text.length - 1]) + ' to ' + entity.name;
+            }
+            story.actionPoints.push(prefix + 'want to ' + entity.name);
             break;
           }
           case 'Acceptance': {
@@ -102,7 +109,7 @@ class StoryWriter extends React.Component {
       <div>
         <RenderSubject subject={this.state.story.subject} />
         <RenderStart start={this.state.story.start} />
-        <RenderNavigate navigate={this.state.story.navigate} />
+        {/* <RenderNavigate navigate={this.state.story.navigate} /> */}
         <RenderActionPoints actionPoints={this.state.story.actionPoints} />
         <RenderAcceptance acceptance={this.state.story.acceptance} />
         <RenderComments comments={this.state.story.comments} />
