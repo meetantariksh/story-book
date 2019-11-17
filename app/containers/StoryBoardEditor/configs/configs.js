@@ -12,6 +12,9 @@ import ActionPointComponent from './components/actionPoint';
 import CommentsComponent from './components/comments';
 import NavigationComponent from './components/navigation';
 import StartPointComponent from './components/startPoint';
+import AgentLoginComponent from './components/Agent/AgentComponents';
+import PolicyOwnerLoginComponent from './components/PolicyOwner/PolicyOwnerLogin';
+import BrokerDealerLoginComponent from './components/BrokerDealer/BrokerDealerLogin';
 
 const config = {
   entityTypes: {
@@ -48,7 +51,7 @@ const config = {
         height: 75,
     },
   },
-  gridSize: 10,
+  gridSize: 50,
 };
 
 const customEntities = {
@@ -77,15 +80,15 @@ const customEntities = {
     icon: StartPointIcon,
   },
   Agent: {
-    component: ActionPointComponent,
+    component: AgentLoginComponent,
     icon: AgemtIcon,
   },
   PolicyOwner: {
-      component: AcceptanceComponent,
+      component: PolicyOwnerLoginComponent,
       icon: PolicyOwnerIcon,
   },
   BrokerDealer: {
-    component: StartPointComponent,
+    component: BrokerDealerLoginComponent,
     icon: BrokerDealerIcon,
   },
 };
