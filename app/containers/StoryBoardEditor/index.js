@@ -148,7 +148,7 @@ export function StoryBoardEditor() {
         <meta name="description" content="Description of StoryBoardEditor" />
       </Helmet>
       <Editor>
-        <StoryBoard onUpdateState={(eState) => {console.log('reaching');setEntityState(eState)}}/>
+        <StoryBoard onUpdateState={(eState) => {setEntityState(eState)}}/>
       </Editor>
       <Editor>
         <StoryWriter entityState={entityState} />
